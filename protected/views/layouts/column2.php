@@ -10,12 +10,16 @@
 		$this->beginWidget('zii.widgets.CPortlet', array(
 			'title'=>'Operations',
 		));
-		$this->widget('zii.widgets.CMenu', array(
+		$this->widget('bootstrap.widgets.BootMenu', array(
+                        'type' => 'list',
 			'items'=>$this->menu,
-			'htmlOptions'=>array('class'=>'operations'),
 		));
 		$this->endWidget();
 	?>
 	</div><!-- sidebar -->
+        <?php $this->widget('bootstrap.widgets.BootMenu', array(
+    'type'=>'list',
+    'items'=>$this->menu
+)); ?>
 </div>
 <?php $this->endContent(); ?>
