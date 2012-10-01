@@ -34,7 +34,7 @@
 
     <?php echo $form->fileFieldRow($model, 'user_avatar'); ?>
     <?php echo $form->error($model, 'user_avatar'); ?>
-    <?php echo $form->dropDownListRow($model, 'user_role', CHtml::listData(authitem::model()->findAll() , 'name', 'name')); ?>
+    <?php echo $form->dropDownListRow($model, 'user_role', CHtml::listData(AuthItem::model()->findAll() , 'name', 'name')); ?>
     <?php echo $form->error($model, 'user_avatar'); ?>
 
 

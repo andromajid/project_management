@@ -26,7 +26,7 @@ return array(
             'ipFilters' => array('127.0.0.1', '::1'),
         ),
         'rights' => array(
-            'install' => false, // Enables the installer.
+            'install' => true, // Enables the installer.
              'superuserName'=>'admin', 
             'userIdColumn'=>'user_id',
             'userNameColumn'=>'user_name', 

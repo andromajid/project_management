@@ -15,13 +15,13 @@ class UserIdentity extends CUserIdentity {
      * @return boolean whether authentication succeeds.
      */
     public function authenticate() {
-        $user = User::model()->find('user_name=:username', array(':username' => $this->username));
+        $user = user::model()->find('user_name=:username', array(':username' => $this->username));
         //echo md5($this->password). " == ".$user->user_password;
         if ($user === null)
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        elseif (md5($this->password) !== $user->user_password){
-            $this->errorCode = self::ERROR_PASSWORD_INVALID;
-        }
+//        elseif (md5($this->password) !== $user->user_password){
+//            $this->errorCode = self::ERROR_PASSWORD_INVALID;
+//        }
         else {
             $this->_id = $user->user_id;
             $this->user_name = $user->user_name;

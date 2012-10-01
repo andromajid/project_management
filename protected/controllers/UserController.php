@@ -33,7 +33,7 @@ class UserController extends Controller {
      */
     public function actionCreate() {
         $model = new user;
-
+       // $authItem = $model->AuthAssignment;
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
