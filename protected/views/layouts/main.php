@@ -22,32 +22,34 @@
         <div class="container" id="page">
             <div id="mainmenu">
                 <?php
-                $this->widget('bootstrap.widgets.BootNavbar', array(
-                    'fixed' => true,
-                    'brand' => 'Andro Majid',
+                $this->widget('bootstrap.widgets.TbNavbar', array(
+                    'type' => 'inverse',
+                    'brand' => CHtml::encode(Yii::app()->name),
                     'brandUrl' => '#',
                     'collapse' => true, // requires bootstrap-responsive.css
                     'items' => array(
                         array(
-                            'class' => 'bootstrap.widgets.BootMenu',
+                            'class' => 'bootstrap.widgets.TbMenu',
                             'items' => array(
-                            array('label' => 'Home', 'url' => array('/site/index')),
-                            array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
-                            array('label' => 'Contact', 'url' => array('/site/contact')),
-                            array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                            array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+                                array('label' => 'Dashboard', 'url' => array('/dashboard/')),
+                                array('label' => 'My Account', 'url' => array('/user/view')),
+                                array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+                                array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                         )),
+                        array(
+                            'class' => 'bootstrap.widgets.TbMenu',
+                            'htmlOptions' => array('class' => 'pull-right'),
+                            'items' => array(
+                                array('label' => 'Dropdown', 'visible' => Yii::app()->user->checkAccess('Admin'), 'url' => '#', 'items' => array(
+                                        array('label' => 'User Management', 'url' => $this->createUrl('user/admin')),
+                                        array('label' => 'Project Management', 'url' => $this->createUrl('project/admin')),
+                                )),
+                            ),
+                        ),
                     ),
                 ));
                 ?>
             </div><!-- mainmenu -->
-            <?php if (isset($this->breadcrumbs)): ?>
-                <?php
-                $this->widget('bootstrap.widgets.BootBreadcrumbs', array(
-                    'links' => $this->breadcrumbs,
-                ));
-                ?><!-- breadcrumbs -->
-            <?php endif ?>
 
             <?php echo $content; ?>
 

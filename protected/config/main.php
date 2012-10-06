@@ -7,6 +7,7 @@
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'Task Management',
+   // 'theme' => 'bootstrap-admin',
     // preloading 'log' component
     'preload' => array('log', 'bootstrap'),
     // autoloading model and component classes

@@ -6,10 +6,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List user', 'url'=>array('index')),
-	array('label'=>'Create user', 'url'=>array('create')),
-	array('label'=>'View user', 'url'=>array('view', 'id'=>$model->user_id)),
-	array('label'=>'Manage user', 'url'=>array('admin')),
+        array('label'=>'View user', 'url'=>array('/user/')),
+	array('label'=>'View user', 'url'=>array('view', 'id'=>$model->user_id),'visible' => Yii::app()->user->checkAccess('Admin')),
+	array('label'=>'Manage user', 'url'=>array('admin'), 'visible' => Yii::app()->user->checkAccess('Admin')),
 );
 ?>
 

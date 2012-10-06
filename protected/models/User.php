@@ -79,16 +79,17 @@ class User extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'user_id' => 'User',
-            'user_fullname' => 'User Full Name',
-            'user_name' => 'User Name',
-            'user_email' => 'User Email',
-            'user_company' => 'User Company',
-            'user_lastlogin' => 'User Lastlogin',
-            'user_gender' => 'User Gender',
-            'user_url' => 'User Url',
-            'user_address' => 'User Address',
-            'user_avatar' => 'User Avatar',
+            'user_fullname' => 'nama panjang',
+            'user_name' => 'username',
+            'user_email' => 'Email',
+            'user_company' => 'Perusahaan',
+            'user_lastlogin' => 'terakhir login',
+            'user_gender' => 'Jenis Kelamin',
+            'user_url' => 'Url',
+            'user_address' => 'Alamat',
+            'user_avatar' => 'picture',
             'user_rate' => 'User Rate',
+            'user_mobilephone' => 'Nomer Telepon',
         );
     }
 

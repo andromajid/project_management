@@ -33,7 +33,7 @@ class UserController extends Controller {
      */
     public function actionCreate() {
         $model = new user;
-       // $authItem = $model->AuthAssignment;
+        // $authItem = $model->AuthAssignment;
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -92,9 +92,25 @@ class UserController extends Controller {
      * Lists all models.
      */
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('user');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
+        $model_user = User::model()->findByPk(Yii::app()->user->getId());
+        $this->render('index', array('model' => $model_user));
+    }
+
+    public function actionEdit() {
+        $model = $this->loadModel(Yii::app()->user->getId());
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            if ($model->validate()) {
+                $model->save(false);
+                $this->redirect(array('/dashboard'));
+            }
+        }
+
+        $this->render('update', array(
+            'model' => $model,
         ));
     }
 
@@ -102,7 +118,7 @@ class UserController extends Controller {
      * Manages all models.
      */
     public function actionAdmin() {
-        $model = new user('search');
+        $model = new User('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['user']))
             $model->attributes = $_GET['user'];
@@ -118,7 +134,7 @@ class UserController extends Controller {
      * @param integer the ID of the model to be loaded
      */
     public function loadModel($id) {
-        $model = user::model()->findByPk($id);
+        $model = User::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

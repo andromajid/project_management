@@ -9,14 +9,14 @@ body
 .subnav {
   font-size:12px;
   padding:9px 0;
-  position:fixed;
   right:165px;
-  top:165px;
+  top:65px;
   width:160px;
-  z-index:1030;
+  z-index:1;
   -webkit-border-radius:4px;
   -moz-border-radius:4px;
   border-radius:4px;
+  position: fixed;
 }
 .subnav .label {
   font-size:0.8em;
@@ -41,6 +41,7 @@ body
 #content
 {
     padding: 20px;
+    margin-top: 25px;
 }
 
 #sidebar
@@ -141,10 +142,10 @@ div.view
 	border: 1px solid #C9E0ED;
 }
 
-div.breadcrumbs
+.breadcrumbs
 {
 	font-size: 0.9em;
-	padding: 5px 20px;
+        top: 43px;
 }
 
 div.breadcrumbs span

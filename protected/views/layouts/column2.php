@@ -9,7 +9,7 @@
     <?php if(count($this->menu) > 0):?>
     <div id="sidebar" class="subnav well">
         <?php
-        $this->widget('bootstrap.widgets.BootMenu', array(
+        $this->widget('bootstrap.widgets.TbMenu', array(
             'type' => 'list', // '', 'tabs', 'pills' (or 'list')
             'items' => $this->menu,
         ));

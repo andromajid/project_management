@@ -9,7 +9,7 @@
 
     <body>
         
-        <?php $this->widget('bootstrap.widgets.BootAlert'); ?>
+        <?php $this->widget('bootstrap.widgets.TbAlert'); ?>
         <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'login-form',

@@ -15,7 +15,7 @@ $this->menu=array(
 
 <h1>View project #<?php echo $model->project_id; ?></h1>
 
-<?php $this->widget('bootstrap.widgets.BootDetailView',array(
+<?php $this->widget('bootstrap.widgets.TbDetailView',array(
 	'data'=>$model,
 	'attributes'=>array(
 		'project_id',

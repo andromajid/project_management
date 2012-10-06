@@ -1,7 +1,6 @@
 <?php
-$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'id' => 'project-form',
-    'enableAjaxValidation' => false,
         ));
 ?>
 
@@ -68,16 +67,16 @@ $x = 0;
 
 <?php foreach ($employee_drop_down_list as $row_id => $row_name): ?>
     <label class="checkbox">
-    <input id="user_user_fullname_<?php echo $x;?>" value="<?php echo $row_id;?>" type="checkbox" name="user[]" />
-    <label for="user_user_fullname_<?php echo $x;?>"><?php echo $row_name?></label></label>
+        <input id="user_user_fullname_<?php echo $x; ?>" value="<?php echo $row_id; ?>" type="checkbox" name="user[]" />
+        <label for="user_user_fullname_<?php echo $x; ?>"><?php echo $row_name ?></label></label>
     <?php
-        $x++;
+    $x++;
     ?>
 <?php endforeach; ?>
 <?php echo $form->dropDownListRow($model, 'project_status', array('1' => 'active', '0' => 'unactive')); ?>
 <div class="form-actions">
     <?php
-    $this->widget('bootstrap.widgets.BootButton', array(
+    $this->widget('bootstrap.widgets.TbButton', array(
         'buttonType' => 'submit',
         'type' => 'primary',
         'label' => $model->isNewRecord ? 'Create' : 'Save',
