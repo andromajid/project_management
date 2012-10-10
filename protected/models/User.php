@@ -22,7 +22,9 @@
  * @property UserRole[] $userRoles
  */
 class User extends CActiveRecord {
-    public $user_role;
+
+    public $user_role, $image;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -117,6 +119,25 @@ class User extends CActiveRecord {
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
                 ));
+    }
+
+    public function saveImage(User $model) {
+        Yii::import('application.extensions.EUploadedImage');
+        $image = new stdClass();
+        $image = EUploadedImage::getInstance($model, 'user_avatar');
+        $image->maxWidth = 800;
+        $image->maxHeight = 600;
+
+        $image->thumb = array(
+            'maxWidth' => 150,
+            'maxHeight' => 150,
+            'dir' => 'thumb',
+            'prefix' => 'thumb_',
+        );
+        $model->user_avatar = $image->getName();
+        if (!$image->saveAs(Yii::getPathOfAlias('webroot') . '/uploads/image/' . $image->getName())) {
+            throw new CHttpException('Error pada saat upload gambar', 501);
+        }
     }
 
 }

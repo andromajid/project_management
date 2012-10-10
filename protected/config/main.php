@@ -16,6 +16,7 @@ return array(
         'application.components.*',
         'application.modules.rights.*',
         'application.modules.rights.components.*',
+        'application.extensions.function_lib'
     ),
     'modules' => array('gii' => array(
             'class' => 'system.gii.GiiModule',

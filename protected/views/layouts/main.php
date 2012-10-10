@@ -32,7 +32,7 @@
                             'class' => 'bootstrap.widgets.TbMenu',
                             'items' => array(
                                 array('label' => 'Dashboard', 'url' => array('/dashboard/')),
-                                array('label' => 'My Account', 'url' => array('/user/view')),
+                                array('label' => 'My Account', 'url' => array('/user/')),
                                 array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
                                 array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                         )),

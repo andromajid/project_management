@@ -37,13 +37,8 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         'user_email',
         'user_company',
         'user_lastlogin',
-        'user_gender',
-        /*
-          'user_url',
-          'user_address',
-          'user_avatar',
-          'user_rate',
-         */
+        array('name' => 'user_gender',
+              'value' => '$data->user_gender == \'l\'?\'laki-laki\':\'Perempuan\''),
         array(
             'class'=>'bootstrap.widgets.TbButtonColumn',
             'htmlOptions'=>array('style'=>'width: 50px'),

@@ -23,6 +23,14 @@ class DashboardController extends Controller {
     }
 
     public function actionIndex() {
+
+        Yii::import('application.extensions.fullcalendar.FullcalendarGraphWidget');
+        //buat grid dari task project
+        $data_task = new Tasks('search');
+        $data_task->unsetAttributes();
+        if (isset($_GET['Tasks'])) {
+            $data_task->attributes = $_GET['Tasks'];
+        }
         $data_provider = new User_project('search');
         $data_provider->unsetAttributes();  // clear any default values
         if (isset($_GET['User_project']))
@@ -30,7 +38,7 @@ class DashboardController extends Controller {
         $project = new Project;
         $user = new User();
         //    $this->renderPartial('partial/_dashboard', array('model' => $data_provider, 'user_project' => $user_project));
-        $this->render('index', array('model' => $data_provider, 'user' => $user, 'project' => $project));
+        $this->render('index', array('data_task' => $data_task, 'model' => $data_provider, 'user' => $user, 'project' => $project));
     }
 
     public function actionDashboard() {
@@ -47,9 +55,11 @@ class DashboardController extends Controller {
     }
 
     public function actionProject() {
-        $model = new Project;
-        $user = new User();
-        $this->renderPartial('/project/_form', array('model' => $model, 'user' => $user));
+        $data_provider = new User_project('search');
+        $data_provider->unsetAttributes();  // clear any default values
+        if (isset($_GET['User_project']))
+            $data_provider->attributes = $_GET['User_project'];
+        $this->render('partial/_dashboard', array('model' => $data_provider));
     }
 
     // Uncomment the following methods and override them if needed
@@ -67,11 +77,40 @@ class DashboardController extends Controller {
       }
 
      */
-    public function actions() {
-        // return external action classes, e.g.:
-        return array(
-                // 'action1' => 'application.controllers.dashboard.IndexAction',
-        );
+    public function actionCalfeed() {
+        $date_start = date('Y-m-d', $_GET['start']);
+        $date_end = date('Y-m-d', $_GET['end']);
+        $data_task = Tasks::model()->get_calender_data($date_start, $date_end, Yii::app()->user->getId());
+        $data_milestone = Milestone::model()->getCalendarData($date_start, $date_end, Yii::app()->user->getId());
+        $data = CMap::mergeArray($data_task, $data_milestone);
+        echo CJSON::encode($data);
+    }
+
+    public function actionGet_modal_data() {
+        $type = $_GET['type'];
+        $id = $_GET['data_id'];
+        switch ($type) {
+            case 'milestone' :
+                $data = Milestone::model()->findByPk($id);
+                $data_arr = array('data_title' => $data->milestone_name,
+                    'description' => $data->milestone_desc,
+                    'start_date' => $data->milestone_start,
+                    'end_date' => $data->milestone_end,
+                    'milestone_status' => $data->milestone_status == '0' ? 'on progress' : 'done',
+                    'project' => $data->milestone_project->project_name);
+                break;
+            case 'task' :
+                $data = Tasks::model()->findByPk($id);
+                $data_arr = array('data_title' => $data->task_title,
+                    'description' => $data->task_text,
+                    'start_date' => $data->task_start,
+                    'end_date' => $data->task_end,
+                    'status' => $data->task_status == '0' ? 'on progress' : 'done',
+                    'project' => $data->taskProject->project_name,
+                    'milestone' => $data->taskMilestone->milestone_name);
+                break;
+        }
+        $this->renderPartial('partial/_modal_task', array('data' => $data_arr, 'model' => $data, 'type' => $type));
     }
 
 }

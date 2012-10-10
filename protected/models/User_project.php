@@ -51,8 +51,8 @@ class User_project extends CActiveRecord {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'project' => array(self::BELONGS_TO, 'project', 'project_id'),
-            'user' => array(self::BELONGS_TO, 'user', 'user_id'),
+            'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 
@@ -84,7 +84,7 @@ class User_project extends CActiveRecord {
         $criteria->compare('project.project_name', $this->project_name, true);
         $criteria->compare('project.project_start', $this->project_start, true);
         $criteria->compare('project.project_end', $this->project_end, true);
-        
+        $criteria->order = 'project.project_start DESC';
         $criteria->compare('project.project_status', $this->project_status, true);
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

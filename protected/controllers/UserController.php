@@ -32,15 +32,22 @@ class UserController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new user;
+        $model = new User;
         // $authItem = $model->AuthAssignment;
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['user'])) {
-            $model->attributes = $_POST['user'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->user_id));
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            if ($model->validate()) {
+                try {
+                    $model->saveImage($model);
+                    $model->save(false);
+                    $this->redirect(array('/user/'));
+                } catch (CHttpException $e) {
+                    Yii::app()->user->setFlash('error', '<strong>ERROR!</strong>' . $e->getMessage());
+                }
+            }
         }
 
         $this->render('create', array(
@@ -98,14 +105,16 @@ class UserController extends Controller {
 
     public function actionEdit() {
         $model = $this->loadModel(Yii::app()->user->getId());
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
             if ($model->validate()) {
-                $model->save(false);
-                $this->redirect(array('/dashboard'));
+                try {
+                    $model->saveImage($model);
+                    $model->save(false);
+                    $this->redirect(array('/user/'));
+                } catch (CHttpException $e) {
+                    Yii::app()->user->setFlash('error', '<strong>ERROR!</strong>' . $e->getMessage());
+                }
             }
         }
 
